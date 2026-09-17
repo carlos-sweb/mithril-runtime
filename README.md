@@ -1,8 +1,11 @@
 # mithril-runtime
 
-A trimmed-down distribution of Mithril 2.3.8 that keeps `m()`, components,
-virtual rendering, `m.mount`, `m.redraw`, `m.render`, and `m.fragment` — the
-render runtime, nothing else.
+A trimmed-down distribution of Mithril that keeps `m()`, components, virtual
+rendering, `m.mount`, `m.redraw`, `m.render`, and `m.fragment` — the render
+runtime, nothing else. Versioned independently of Mithril itself (regular
+semver, starting at `1.0.0`); the upstream Mithril release it's currently
+built from is recorded in `package.json`'s `upstreamMithrilVersion` field
+(currently `2.3.8`), not in this package's own version number.
 
 It does not include or expose `m.route`, `m.trust`, or `m.request`. As a
 result, there is no router, no unescaped-HTML insertion, and no built-in HTTP
@@ -73,7 +76,10 @@ bash scripts/update-from-mithril.sh ignored /path/to/mithril.js
 ```
 
 The script fails if the upstream structure changes, so it never publishes a
-version that only partially removed the excluded features.
+version that only partially removed the excluded features. It updates
+`upstreamMithrilVersion` automatically but never touches this package's own
+`version` — bump that yourself, based on what actually changed, before
+publishing.
 
 The code comes from Mithril.js and is distributed under the MIT license; see
 `LICENSE` in the official project for the full text.

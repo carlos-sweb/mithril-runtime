@@ -1,8 +1,9 @@
 {
   "name": "mithril-runtime",
-  "version": "2.3.8-runtime.0",
+  "version": "1.0.0",
   "description": "Mithril rendering runtime without routing, trusted HTML, or HTTP requests",
   "license": "MIT",
+  "upstreamMithrilVersion": "2.3.8",
   "main": "index.js",
   "browser": "mithril-runtime.js",
   "unpkg": "mithril-runtime.js",

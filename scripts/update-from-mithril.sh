@@ -85,7 +85,12 @@ sed -i '/if (children != null && children.length === 1 && children\[0\].tag === 
 
 UPSTREAM_VERSION=$(sed -n 's/.*"version": "\([^"]*\)".*/\1/p' "$SOURCE/package.json" | head -n 1)
 [ -n "$UPSTREAM_VERSION" ] || die 'No se pudo detectar la versión de Mithril'
-sed -i -E "s/\"version\": \"[^\"]*\"/\"version\": \"${UPSTREAM_VERSION}-runtime.0\"/" package.json
+# mithril-runtime tracks ITS OWN semver (bump it yourself before publishing,
+# based on what actually changed) — only the tracked upstream tag is
+# recorded automatically here, so a plain `npm install mithril-runtime` /
+# `^x.y.z` range keeps working normally for consumers instead of landing on
+# a prerelease tag they need to special-case.
+sed -i -E "s/\"upstreamMithrilVersion\": \"[^\"]*\"/\"upstreamMithrilVersion\": \"${UPSTREAM_VERSION}\"/" package.json
 
 if rg -n 'm\.(route|trust|request)|hyperscript\.trust|createHTML|updateHTML|innerHTML' \
 	index.js hyperscript.js browser.js render mithril-runtime.js; then
@@ -93,4 +98,4 @@ if rg -n 'm\.(route|trust|request)|hyperscript\.trust|createHTML|updateHTML|inne
 fi
 "$RUNTIME" tests/runtime.test.js
 "$RUNTIME" scripts/bundler browser.js -output mithril-runtime.js
-printf 'mithril-runtime regenerado desde %s (%s).\n' "$SOURCE" "$UPSTREAM_VERSION"
+printf 'mithril-runtime regenerado desde %s (upstream Mithril %s). Recordá bumpear "version" en package.json antes de publicar.\n' "$SOURCE" "$UPSTREAM_VERSION"
