@@ -9,7 +9,7 @@ result, there is no router, no unescaped-HTML insertion, and no built-in HTTP
 client — the three things that only make sense inside a browser. Meant for
 consumers that retarget Mithril's `render()` to an environment that isn't the
 browser DOM (see
-[`mithril-lynx-v2`](https://github.com/carlos-sweb/mithril-lynx-v2)).
+[`mithril-lynx`](https://github.com/carlos-sweb/mithril-lynx)).
 
 ```js
 var m = require("mithril-runtime")
@@ -23,9 +23,9 @@ m.mount(document.body, {
 
 ## Why this exists
 
-This package was born out of [`mithril-lynx-v2`](https://github.com/carlos-sweb/mithril-lynx-v2),
-a rewrite of Mithril's render pipeline that targets [Lynx](https://lynxjs.org)
-instead of a browser DOM. `mithril-lynx-v2` needs exactly one thing from
+This package was born out of [`mithril-lynx`](https://github.com/carlos-sweb/mithril-lynx),
+which retargets Mithril's render pipeline to [Lynx](https://lynxjs.org)
+instead of a browser DOM. `mithril-lynx` needs exactly one thing from
 Mithril: `render/render.js`'s factory and its `render(dom, vnodes, redraw)`
 contract, run against a Lynx-backed fake DOM — nothing more.
 
@@ -40,7 +40,7 @@ already provides on its own terms. Depending on plain `mithril` would mean
 shipping and maintaining compatibility with code that can never run, for no
 benefit.
 
-So instead of forking `mithril` again for `mithril-lynx-v2` (and every future
+So instead of forking `mithril` again for `mithril-lynx` (and every future
 port to a non-browser target), the browser-only third got extracted into its
 own reusable core: `mithril-runtime`. It's a plain, mostly-unmodified subset
 of upstream Mithril — see the "Updating from Mithril.js" section below for
