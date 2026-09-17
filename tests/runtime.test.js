@@ -21,4 +21,4 @@ m.render(root, m("p", "<em>texto sin interpretar</em>"))
 assert.strictEqual(root.firstChild.nodeName, "P")
 assert.strictEqual(root.firstChild.firstChild.nodeValue, "<em>texto sin interpretar</em>")
 
-console.log("mithril-minimal: all tests passed")
+console.log("mithril-runtime: all tests passed")

@@ -1,6 +1,6 @@
 "use strict"
 
-// Mithril Minimal intentionally exposes only the rendering runtime.
+// mithril-runtime intentionally exposes only the rendering runtime.
 // Routing, trusted HTML and HTTP requests are omitted from this build.
 var hyperscript = require("./hyperscript")
 var mountRedraw = require("./mount-redraw")

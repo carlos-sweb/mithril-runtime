@@ -1,17 +1,17 @@
 {
-  "name": "mithril-minimal",
-  "version": "2.3.8-minimal.0",
+  "name": "mithril-runtime",
+  "version": "2.3.8-runtime.0",
   "description": "Mithril rendering runtime without routing, trusted HTML, or HTTP requests",
   "license": "MIT",
   "main": "index.js",
-  "browser": "mithril-minimal.js",
-  "unpkg": "mithril-minimal.js",
-  "jsdelivr": "mithril-minimal.js",
+  "browser": "mithril-runtime.js",
+  "unpkg": "mithril-runtime.js",
+  "jsdelivr": "mithril-runtime.js",
+  "repository": "github:carlos-sweb/mithril-runtime",
   "scripts": {
-    "build": "bun scripts/bundler browser.js -output mithril-minimal.js",
-    "test": "bun tests/minimal.test.js",
+    "build": "bun scripts/bundler browser.js -output mithril-runtime.js",
+    "test": "bun tests/runtime.test.js",
     "update:mithril": "bash scripts/update-from-mithril.sh"
   },
-  "repository": "github:MithrilJS/mithril.js",
-  "keywords": ["mithril", "vdom", "minimal"]
+  "keywords": ["mithril", "vdom", "runtime"]
 }

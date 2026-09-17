@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Regenera Mithril Minimal a partir de una etiqueta o checkout de Mithril.js.
+# Regenera mithril-runtime a partir de una etiqueta o checkout de Mithril.js.
 set -euo pipefail
 
 ROOT=$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)
@@ -85,12 +85,12 @@ sed -i '/if (children != null && children.length === 1 && children\[0\].tag === 
 
 UPSTREAM_VERSION=$(sed -n 's/.*"version": "\([^"]*\)".*/\1/p' "$SOURCE/package.json" | head -n 1)
 [ -n "$UPSTREAM_VERSION" ] || die 'No se pudo detectar la versión de Mithril'
-sed -i -E "s/\"version\": \"[^\"]*\"/\"version\": \"${UPSTREAM_VERSION}-minimal.0\"/" package.json
+sed -i -E "s/\"version\": \"[^\"]*\"/\"version\": \"${UPSTREAM_VERSION}-runtime.0\"/" package.json
 
 if rg -n 'm\.(route|trust|request)|hyperscript\.trust|createHTML|updateHTML|innerHTML' \
-	index.js hyperscript.js browser.js render mithril-minimal.js; then
+	index.js hyperscript.js browser.js render mithril-runtime.js; then
 	die 'La exclusión de funcionalidades no se completó'
 fi
-"$RUNTIME" tests/minimal.test.js
-"$RUNTIME" scripts/bundler browser.js -output mithril-minimal.js
-printf 'Mithril Minimal regenerado desde %s (%s).\n' "$SOURCE" "$UPSTREAM_VERSION"
+"$RUNTIME" tests/runtime.test.js
+"$RUNTIME" scripts/bundler browser.js -output mithril-runtime.js
+printf 'mithril-runtime regenerado desde %s (%s).\n' "$SOURCE" "$UPSTREAM_VERSION"

@@ -1,17 +1,21 @@
-# Mithril Minimal
+# mithril-runtime
 
 Una distribución reducida de Mithril 2.3.8 que conserva `m()`, componentes,
-renderizado virtual, `m.mount`, `m.redraw`, `m.render` y `m.fragment`.
+renderizado virtual, `m.mount`, `m.redraw`, `m.render` y `m.fragment` — el
+runtime de render, nada más.
 
 No incluye ni expone `m.route`, `m.trust` ni `m.request`. En consecuencia, no
-hay router, inserción de HTML sin escapar ni cliente HTTP integrado.
+hay router, inserción de HTML sin escapar ni cliente HTTP integrado — las
+tres cosas que solo tienen sentido en un navegador. Pensado para consumidores
+que retargetean el `render()` de Mithril a un entorno que no es el DOM del
+navegador (ver [`mithril-lynx-v2`](https://github.com/carlos-sweb/mithril-lynx-v2)).
 
 ```js
-var m = require("mithril-minimal")
+var m = require("mithril-runtime")
 
 m.mount(document.body, {
   view: function () {
-    return m("main", [m("h1", "Hola"), m("p", "Mithril minimal")])
+    return m("main", [m("h1", "Hola"), m("p", "mithril-runtime")])
   },
 })
 ```
@@ -20,7 +24,7 @@ m.mount(document.body, {
 
 Ejecuta `bun run test` para comprobar la API reducida, el renderizado básico y
 que el HTML de texto no sea interpretado. `bun run build` genera el artefacto
-de navegador `mithril-minimal.js`.
+de navegador `mithril-runtime.js`.
 
 ## Actualizar desde Mithril.js
 

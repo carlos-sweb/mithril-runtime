@@ -1,6 +1,6 @@
 ;(function() {
 "use strict"
-// Mithril Minimal intentionally exposes only the rendering runtime.
+// mithril-runtime intentionally exposes only the rendering runtime.
 // Routing, trusted HTML and HTTP requests are omitted from this build.
 function Vnode(tag, key, attrs0, children, text, dom) {
 	return {tag: tag, key: key, attrs: attrs0, children: children, text: text, dom: dom, is: undefined, domSize: undefined, state: undefined, events: undefined, instance: undefined}
