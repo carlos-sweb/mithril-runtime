@@ -21,6 +21,32 @@ m.mount(document.body, {
 })
 ```
 
+## Why this exists
+
+This package was born out of [`mithril-lynx-v2`](https://github.com/carlos-sweb/mithril-lynx-v2),
+a rewrite of Mithril's render pipeline that targets [Lynx](https://lynxjs.org)
+instead of a browser DOM. `mithril-lynx-v2` needs exactly one thing from
+Mithril: `render/render.js`'s factory and its `render(dom, vnodes, redraw)`
+contract, run against a Lynx-backed fake DOM — nothing more.
+
+Plain `mithril` still carries `m.route` (a `pushState`/`hashchange` router),
+`m.trust` (raw HTML insertion), and `m.request` (an XHR/fetch-based HTTP
+client). All three assume a real browser: a router needs `window.location`
+and browser history, trusted HTML needs an `innerHTML` sink, and the request
+client is just a `fetch`/`XMLHttpRequest` wrapper. None of that means
+anything on Lynx's main/background thread split — there's no address bar, no
+DOM to inject raw HTML into, and no reason to duplicate an HTTP client Lynx
+already provides on its own terms. Depending on plain `mithril` would mean
+shipping and maintaining compatibility with code that can never run, for no
+benefit.
+
+So instead of forking `mithril` again for `mithril-lynx-v2` (and every future
+port to a non-browser target), the browser-only third got extracted into its
+own reusable core: `mithril-runtime`. It's a plain, mostly-unmodified subset
+of upstream Mithril — see the "Updating from Mithril.js" section below for
+exactly what gets removed and how that removal is kept honest across
+updates.
+
 ## Development
 
 Run `bun run test` to check the reduced API surface, basic rendering, and that
