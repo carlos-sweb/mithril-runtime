@@ -21,4 +21,18 @@ m.render(root, m("p", "<em>texto sin interpretar</em>"))
 assert.strictEqual(root.firstChild.nodeName, "P")
 assert.strictEqual(root.firstChild.firstChild.nodeValue, "<em>texto sin interpretar</em>")
 
+// pathname/querystring: pure route-template utilities, kept even though
+// m.route itself is excluded — a consumer building its own router (e.g.
+// mithril-lynx-v2's in-memory route.js) needs the exact same `:id`/`:file...`
+// template syntax real Mithril uses, without pulling in window.history.
+var compileTemplate = require("../pathname/compileTemplate")
+var parsePathname = require("../pathname/parse")
+var buildPathname = require("../pathname/build")
+
+var check = compileTemplate("/users/:id")
+var matched = parsePathname("/users/42")
+assert.strictEqual(check(matched), true, "compileTemplate must match a concrete path")
+assert.strictEqual(matched.params.id, "42", "compileTemplate must extract :id")
+assert.strictEqual(buildPathname("/users/:id", { id: 42 }), "/users/42", "build must interpolate params")
+
 console.log("mithril-runtime: all tests passed")

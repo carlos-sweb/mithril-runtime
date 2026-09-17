@@ -1,6 +1,6 @@
 {
   "name": "mithril-runtime",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Mithril rendering runtime without routing, trusted HTML, or HTTP requests",
   "license": "MIT",
   "upstreamMithrilVersion": "2.3.8",

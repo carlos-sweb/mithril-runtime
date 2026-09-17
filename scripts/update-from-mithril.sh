@@ -35,20 +35,26 @@ for file in \
 	"$SOURCE/render/domFor.js" "$SOURCE/render/delayedRemoval.js" \
 	"$SOURCE/render/emptyAttrs.js" "$SOURCE/render/cachedAttrsIsStaticMap.js" \
 	"$SOURCE/util/censor.js" "$SOURCE/util/hasOwn.js" \
+	"$SOURCE/util/decodeURIComponentSafe.js" \
+	"$SOURCE/pathname/build.js" "$SOURCE/pathname/parse.js" \
+	"$SOURCE/pathname/compileTemplate.js" \
+	"$SOURCE/querystring/build.js" "$SOURCE/querystring/parse.js" \
 	"$SOURCE/test-utils/domMock.js" "$SOURCE/scripts/bundler.js" \
 	"$SOURCE/scripts/_bundler-impl.js"; do
 	require_file "$file"
 done
 
 cd "$ROOT"
-rm -rf render route.js request.js request api/router.js
-mkdir -p api util test-utils
+rm -rf render route.js request.js request api/router.js pathname querystring
+mkdir -p api util test-utils pathname querystring
 cp -R "$SOURCE/render" ./render
 rm -rf render/tests render/trust.js
 cp "$SOURCE/LICENSE" ./LICENSE
 cp "$SOURCE/api/mount-redraw.js" ./api/mount-redraw.js
 cp "$SOURCE"/{browser.js,hyperscript.js,mount-redraw.js,mount.js,redraw.js,render.js} ./
-cp "$SOURCE/util"/{censor.js,hasOwn.js} ./util/
+cp "$SOURCE/util"/{censor.js,hasOwn.js,decodeURIComponentSafe.js} ./util/
+cp "$SOURCE/pathname"/{build.js,parse.js,compileTemplate.js} ./pathname/
+cp "$SOURCE/querystring"/{build.js,parse.js} ./querystring/
 cp "$SOURCE/test-utils/domMock.js" ./test-utils/domMock.js
 cp "$SOURCE/scripts"/{bundler.js,_bundler-impl.js} ./scripts/
 
@@ -93,7 +99,7 @@ UPSTREAM_VERSION=$(sed -n 's/.*"version": "\([^"]*\)".*/\1/p' "$SOURCE/package.j
 sed -i -E "s/\"upstreamMithrilVersion\": \"[^\"]*\"/\"upstreamMithrilVersion\": \"${UPSTREAM_VERSION}\"/" package.json
 
 if rg -n 'm\.(route|trust|request)|hyperscript\.trust|createHTML|updateHTML|innerHTML' \
-	index.js hyperscript.js browser.js render mithril-runtime.js; then
+	index.js hyperscript.js browser.js render pathname querystring mithril-runtime.js; then
 	die 'La exclusión de funcionalidades no se completó'
 fi
 "$RUNTIME" tests/runtime.test.js

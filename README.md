@@ -14,6 +14,16 @@ consumers that retarget Mithril's `render()` to an environment that isn't the
 browser DOM (see
 [`mithril-lynx`](https://github.com/carlos-sweb/mithril-lynx)).
 
+`pathname/build.js`, `pathname/parse.js`, `pathname/compileTemplate.js`, and
+`querystring/{build,parse}.js` **are** kept, unmodified, as plain subpath
+requires (`require("mithril-runtime/pathname/compileTemplate")`) — they're
+the `:id`/`:file...` route-template engine real `m.route` uses internally,
+and they have zero browser dependency (no `window`/`document`/`history`
+anywhere in them). They exist so a consumer can build ITS OWN router (e.g.
+an in-memory one, with no `window.history`) without reinventing Mithril's
+route-matching syntax from scratch. `m.route` itself — the part that's
+actually coupled to `window.history`/`pushState` — is still gone.
+
 ```js
 var m = require("mithril-runtime")
 
